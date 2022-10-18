@@ -1,16 +1,14 @@
 package com.example.sparta.entity;
 
+import com.example.sparta.controller.dto.MemberRequestDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.Hibernate;
-import org.springframework.lang.Nullable;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Builder
 @Getter
@@ -32,6 +30,13 @@ public class Member extends Timestamped {
     @Column(nullable = false)
     @JsonIgnore
     private String password;
+
+
+    public Member(MemberRequestDto memberRequestDto){
+        this.name = memberRequestDto.getUsername();
+        this.email = memberRequestDto.getEmail();
+        this.password = memberRequestDto.getPassword();
+    }
 
 //    @Override
 //    public boolean equals(Object o) {

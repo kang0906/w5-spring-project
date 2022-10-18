@@ -12,3 +12,4 @@ public class SpartaApplication {
 		SpringApplication.run(SpartaApplication.class, args);
 	}
 }
+
