@@ -29,4 +29,9 @@ public class Board {
     @Column(nullable = false)
     private String boardContent;
 
+    public Board(Member member, String boardTitle, String boardContent) {
+        this.member = member;
+        this.boardTitle = boardTitle;
+        this.boardContent = boardContent;
+    }
 }

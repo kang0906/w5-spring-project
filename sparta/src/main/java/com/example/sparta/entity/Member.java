@@ -33,7 +33,13 @@ public class Member extends Timestamped {
     @JsonIgnore
     private String password;
 
-//    @Override
+    public Member(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    //    @Override
 //    public boolean equals(Object o) {
 //        if (this == o) {
 //            return true;

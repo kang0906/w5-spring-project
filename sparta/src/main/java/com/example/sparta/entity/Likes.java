@@ -25,4 +25,9 @@ public class Likes {
     @JoinColumn(name = "member_id", nullable = false)
     @ManyToOne//(fetch = FetchType.LAZY)
     private Member member;
+
+    public Likes(Board board, Member member) {
+        this.board = board;
+        this.member = member;
+    }
 }
