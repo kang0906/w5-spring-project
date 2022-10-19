@@ -18,18 +18,18 @@ public class MyPageController {
     CommonResponseDto getMyPost(){
 //        Long memberId = 0 // 로그인로직 구현후 memberId 입력해줄것
         String memberName = "testUser"; // todo : 로그인로직 구현후 username 입력해줄것
-        return new CommonResponseDto(true, myPageService.getMyBoard(memberName));
+        return CommonResponseDto.success(myPageService.getMyBoard(memberName));
     }
 
     @GetMapping("/comment")
     CommonResponseDto getMyComment(){
         String memberName = "testUser"; // todo : 로그인로직 구현후 username 입력해줄것
-        return new CommonResponseDto(true, myPageService.getMyComment(memberName));
+        return CommonResponseDto.success(myPageService.getMyComment(memberName));
     }
 
     @GetMapping("/likes")
     CommonResponseDto getMyLikes(){
         String memberName = "testUser"; // todo : 로그인로직 구현후 username 입력해줄것
-        return new CommonResponseDto(true, myPageService.getMyLikes(memberName));
+        return CommonResponseDto.success(myPageService.getMyLikes(memberName));
     }
 }
