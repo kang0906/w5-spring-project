@@ -1,5 +1,6 @@
 package com.example.sparta.controller.response;
 
+
 import com.example.sparta.entity.Error;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

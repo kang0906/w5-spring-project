@@ -30,6 +30,13 @@ public class Comment extends Timestamped{
     @Column(nullable = false)
     private String comment_content;
 
+
+    public Comment(Board board, Member member, String comment_content) {
+        this.board = board;
+        this.member = member;
+        this.comment_content = comment_content;
+    }
+
     public void update(CommentDto commentDto) {
         this.comment_content = commentDto.getComment();
     }
@@ -41,6 +48,5 @@ public class Comment extends Timestamped{
 //    public boolean validateMember(Member member) {
 //        return !this.member.equals(member);
 //    }
-
 
 }

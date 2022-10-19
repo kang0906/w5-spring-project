@@ -30,9 +30,17 @@ public class Board extends Timestamped {
 
     @Column(nullable = false)
     private String boardContent;
-
+    
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
+
+    public Board(Member member, String boardTitle, String boardContent) {
+        this.member = member;
+        this.boardTitle = boardTitle;
+        this.boardContent = boardContent;
+    }
+
+
 
     public void update(BoardRequestDto requestDto) {
         this.boardTitle = requestDto.getTitle();
