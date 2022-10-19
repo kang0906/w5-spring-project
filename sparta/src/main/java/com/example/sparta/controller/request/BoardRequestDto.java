@@ -1,13 +1,12 @@
 package com.example.sparta.controller.request;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Setter
 @Getter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class BoardRequestDto {
-    private final String title;
-    private final String contents;
+    private String title;
+    private String contents;
 }
