@@ -1,11 +1,13 @@
 package com.example.sparta.entity;
 
+import com.example.sparta.controller.request.BoardRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Builder
@@ -13,7 +15,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Board {
+public class Board extends Timestamped {
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
@@ -28,5 +30,13 @@ public class Board {
 
     @Column(nullable = false)
     private String boardContent;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
+
+    public void update(BoardRequestDto requestDto) {
+        this.boardTitle = requestDto.getTitle();
+        this.boardContent = requestDto.getContents();
+    }
 
 }
