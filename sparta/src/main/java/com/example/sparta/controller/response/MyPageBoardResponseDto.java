@@ -8,7 +8,9 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -18,7 +20,7 @@ public class MyPageBoardResponseDto {
     private String title;
     private String content;
     private String name;
-    private Map<String, String> comments = new LinkedHashMap<>();
+    private List comments;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
@@ -27,8 +29,8 @@ public class MyPageBoardResponseDto {
         this.title = board.getBoardTitle();
         this.content = board.getBoardContent();
         this.name = board.getMember().getName();
-        this.comments = null;   // todo : 수정해야함
-        this.createdAt = null;  // todo : 수정해야함
-        this.modifiedAt = null; // todo : 수정해야함
+        this.comments = board.getComments();
+        this.createdAt = board.getCreatedAt();
+        this.modifiedAt = board.getModifiedAt();
     }
 }
