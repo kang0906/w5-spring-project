@@ -51,7 +51,7 @@ public class BoardController {
 
     //좋아요
     @PostMapping("/api/post/{id}/like")
-    public boolean likeUp(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetailsImpl){
+    public String likeUp(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetailsImpl){
 
         return boardService.likeUp(id, userDetailsImpl.getUsername());
     }

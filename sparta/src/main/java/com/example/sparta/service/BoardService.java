@@ -134,7 +134,7 @@ public class BoardService {
         return optionalBoard.orElse(null);
     }
 
-    public boolean likeUp(Long boardId, String userEmail) {
+    public String likeUp(Long boardId, String userEmail) {
         //1. boardId 와 userId로 좋아요 여부 판단하기
         //Optional<Likes> likes = likesRepository.findByBoardIdAndUserId(boardId, userId);
         Optional<Likes> likes = likesRepository.findByBoardIdAndMemberEmail(boardId, userEmail);
@@ -146,13 +146,14 @@ public class BoardService {
             //2-1. 있으면 삭제
             likesRepository.delete(likes.get());
             //id 만 받아와서 삭제!!
+            return "좋아요 삭제";
         }else {
             //2-2. 없으면 등록
             Likes like = new Likes(board, member);
             likesRepository.save(like);
+            return "좋아요 등록";
         }
 
-        return true;
 
     }
 }
