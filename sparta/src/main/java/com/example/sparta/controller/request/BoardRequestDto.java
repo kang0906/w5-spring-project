@@ -1,4 +1,4 @@
-package com.sparta.mk.dto;
+package com.example.sparta.controller.request;
 
 
 import lombok.Getter;
