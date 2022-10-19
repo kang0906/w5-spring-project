@@ -12,10 +12,10 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Comment extends Timestamped{
+public class Comment extends Timestamped {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JoinColumn(name = "board_id", nullable = false)
@@ -29,4 +29,11 @@ public class Comment extends Timestamped{
     @Column(nullable = false)
     private String comment_content;
 
+    public void update(com.sparta.mk.dto.CommentDto commentDto) {
+        this.comment_content = commentDto.getComment();
+    }
+
+    public Comment(Member member) {
+        this.member = member;
+    }
 }

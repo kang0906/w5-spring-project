@@ -41,7 +41,7 @@ public class MemberService {
 
         memberRepository.save(member);
 
-        return new CommonResponseDto(true, new MemberResponseDto(member));
+        return CommonResponseDto.success(new MemberResponseDto(member));
     }
 
     public CommonResponseDto logIn(LogInRequestDto logInRequestDto, HttpServletResponse response) {
@@ -68,7 +68,7 @@ public class MemberService {
 
         setHeader(response, tokenDto);
 
-        return new CommonResponseDto(true, new MemberResponseDto(member));
+        return CommonResponseDto.success( new MemberResponseDto(member));
     }
 
     private void setHeader(HttpServletResponse response, TokenDto tokenDto) {
