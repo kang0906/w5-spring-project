@@ -32,7 +32,7 @@ public class JwtUtil {
 
     public static final String ACCESS_TOKEN = "Access_Token";
     public static final String REFRESH_TOKEN = "Refresh_Token";
-    private static final Long ACCESS_TIME = 10 * 1000L;
+    private static final Long ACCESS_TIME = 2000 * 1000L;
     private static final Long REFRESH_TIME = 10000 * 1000L;
 
     @Value("${jwt.secret.key}") //application.properties에 선언해놓은 값을 가져온다

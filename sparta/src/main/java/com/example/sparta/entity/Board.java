@@ -47,4 +47,8 @@ public class Board extends Timestamped {
         this.boardContent = requestDto.getContents();
     }
 
+    public Board(Long boardId){
+        this.id = boardId;
+    }
+
 }

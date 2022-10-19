@@ -7,9 +7,11 @@ import com.example.sparta.controller.response.CommonResponseDto;
 import com.example.sparta.controller.response.DetailPostDto;
 import com.example.sparta.entity.Board;
 import com.example.sparta.entity.Comment;
+import com.example.sparta.entity.Likes;
 import com.example.sparta.entity.Member;
 import com.example.sparta.repository.BoardRepository;
 import com.example.sparta.repository.CommentRepository;
+import com.example.sparta.repository.LikesRepository;
 import com.example.sparta.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,7 @@ public class BoardService {
 
     private final CommentRepository commentRepository;
 
+    private final LikesRepository likesRepository;
 
     private Member getMember(String email) {
         Optional<Member> mem = memberRepository.findByEmail(email);
@@ -131,4 +134,25 @@ public class BoardService {
         return optionalBoard.orElse(null);
     }
 
+    public boolean likeUp(Long boardId, String userEmail) {
+        //1. boardId 와 userId로 좋아요 여부 판단하기
+        //Optional<Likes> likes = likesRepository.findByBoardIdAndUserId(boardId, userId);
+        Optional<Likes> likes = likesRepository.findByBoardIdAndMemberEmail(boardId, userEmail);
+        //Exists 메소드
+        // id 만 가져오기
+        Member member = getMember(userEmail);
+        Board board = new Board(boardId);
+        if (likes.isPresent()){
+            //2-1. 있으면 삭제
+            likesRepository.delete(likes.get());
+            //id 만 받아와서 삭제!!
+        }else {
+            //2-2. 없으면 등록
+            Likes like = new Likes(board, member);
+            likesRepository.save(like);
+        }
+
+        return true;
+
+    }
 }

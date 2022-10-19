@@ -48,4 +48,11 @@ public class BoardController {
     public CommonResponseDto<?> getDetailPost(@PathVariable Long postId) {
         return boardService.getDetailPost(postId);
     }
+
+    //좋아요
+    @PostMapping("/api/post/{id}/like")
+    public boolean likeUp(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetailsImpl){
+
+        return boardService.likeUp(id, userDetailsImpl.getUsername());
+    }
 }
