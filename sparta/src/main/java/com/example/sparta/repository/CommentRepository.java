@@ -6,7 +6,13 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+import java.util.List;
+
 public interface CommentRepository extends JpaRepository<Comment, Long> {
+
     List<Comment> findAllByMember_id(/*@Param(value = "member_id")*/ Long memberId);
+
+
+    List<Comment> findAllByBoardId(Long id);
 
 }

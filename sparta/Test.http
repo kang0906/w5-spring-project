@@ -1,0 +1,22 @@
+GET http://localhost:8080/api/issue/token
+Accept: application/json
+Refresh_Token:eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoazEyM0BnbWFpbC5jb20iLCJleHAiOjE2NjYwODc0NzQsImlhdCI6MTY2NjA3NzQ3NH0.NNJHql47jaHBLS4dyGzMlV6BKTgRm5cTBodzDQrLGCo
+
+###
+POST http://localhost:8080/api/member/login
+Content-Type: application/json
+
+{
+  "email": "hk123@gmail.com",
+  "password" : "Hk123!"
+}
+
+###
+POST http://localhost:8080/api/member/signup
+Content-Type: application/json
+
+{
+  "username": "형기",
+  "email" : "hk123@gmail.com",
+  "password" : "Hk123!"
+}
