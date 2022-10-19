@@ -1,5 +1,6 @@
 package com.example.sparta.entity;
 
+import com.example.sparta.controller.request.BoardRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,7 +34,7 @@ public class Board extends Timestamped {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
 
-    public void update(com.sparta.mk.dto.BoardRequestDto requestDto) {
+    public void update(BoardRequestDto requestDto) {
         this.boardTitle = requestDto.getTitle();
         this.boardContent = requestDto.getContents();
     }

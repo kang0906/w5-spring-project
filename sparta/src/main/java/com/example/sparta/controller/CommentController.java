@@ -3,6 +3,7 @@ package com.example.sparta.controller;
 
 
 
+import com.example.sparta.controller.request.CommentDto;
 import com.example.sparta.controller.response.CommentResponseDto;
 import com.example.sparta.controller.response.CommonResponseDto;
 import com.example.sparta.security.UserDetailsImpl;
@@ -19,20 +20,20 @@ public class CommentController {
 
     //댓글 쓰기
     @PostMapping("/api/post/{postId}/comment")
-    public CommentResponseDto createComment(@RequestBody com.sparta.mk.dto.CommentDto commentDto, @AuthenticationPrincipal UserDetailsImpl userDetail) throws IllegalAccessException {
+    public CommentResponseDto createComment(@RequestBody CommentDto commentDto, @AuthenticationPrincipal UserDetailsImpl userDetail) throws IllegalAccessException {
         return commentService.createComment(commentDto, userDetail.getUsername());
     }
 
     //댓글 수정
     @PutMapping("/api/post/{postId}/comment/{commentId}")
-    public CommentResponseDto updateComment(@PathVariable Long id, @RequestBody com.sparta.mk.dto.CommentDto commentDto, @AuthenticationPrincipal UserDetailsImpl userDetail) throws IllegalAccessException {
-        return commentService.updateComment(id, commentDto, userDetail.getUsername());
+    public CommentResponseDto updateComment(@PathVariable Long commentId, @RequestBody CommentDto commentDto, @AuthenticationPrincipal UserDetailsImpl userDetail) throws IllegalAccessException {
+        return commentService.updateComment(commentId, commentDto, userDetail.getUsername());
     }
 
     //댓글 삭제
     @DeleteMapping("/api/post/{postId}/comment/{commentId}")
-    public Long deleteComment(@PathVariable Long id, @AuthenticationPrincipal UserDetailsImpl userDetail) throws IllegalAccessException {
-        return commentService.deleteComment(id, userDetail.getUsername());
+    public Long deleteComment(@PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetail) throws IllegalAccessException {
+        return commentService.deleteComment(commentId, userDetail.getUsername());
     }
 
 

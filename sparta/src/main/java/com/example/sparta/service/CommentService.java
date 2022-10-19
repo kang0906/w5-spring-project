@@ -2,6 +2,7 @@ package com.example.sparta.service;
 
 
 
+import com.example.sparta.controller.request.CommentDto;
 import com.example.sparta.controller.response.CommentResponseDto;
 import com.example.sparta.controller.response.CommonResponseDto;
 import com.example.sparta.entity.Board;
@@ -35,13 +36,13 @@ public class CommentService {
         return mem.get();
     }
 
-    private void extracted(com.sparta.mk.dto.CommentDto commentDto) {
+    private void extracted(CommentDto commentDto) {
         postRepository.findById(commentDto.getPostId()).orElseThrow(() -> new IllegalArgumentException("해당 글이 존재하지 않습니다."));
     }
 
     // 댓글 생성
     @Transactional
-    public CommentResponseDto createComment(com.sparta.mk.dto.CommentDto commentDto, String email)  {
+    public CommentResponseDto createComment(CommentDto commentDto, String email)  {
         Member member = getMember(email);
         extracted(commentDto);
         Comment comment = new Comment(member);
@@ -58,7 +59,7 @@ public class CommentService {
 
     // 댓글 수정
     @Transactional
-    public CommentResponseDto updateComment(Long id, com.sparta.mk.dto.CommentDto commentDto, String email) {
+    public CommentResponseDto updateComment(Long id, CommentDto commentDto, String email) {
         Member member = getMember(email);
         extracted(commentDto);
         Comment comment = commentRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("댓글을 찾을 수 없습니다."));

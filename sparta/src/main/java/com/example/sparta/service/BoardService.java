@@ -1,6 +1,7 @@
 package com.example.sparta.service;
 
 
+import com.example.sparta.controller.request.BoardRequestDto;
 import com.example.sparta.controller.response.CommentResponseDto;
 import com.example.sparta.controller.response.CommonResponseDto;
 import com.example.sparta.controller.response.DetailPostDto;
@@ -38,7 +39,7 @@ public class BoardService {
 
     //게시글 업데이트
     @Transactional
-    public DetailPostDto update(Long id, com.sparta.mk.dto.BoardRequestDto requestDto, String email) {
+    public DetailPostDto update(Long id, BoardRequestDto requestDto, String email) {
         Member member = getMember(email);
         Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 글이 존재하지 않습니다."));
         if(!board.getMember().getEmail().equals(member.getEmail()))
@@ -50,7 +51,7 @@ public class BoardService {
 
     //게시글 저장
     @Transactional
-    public DetailPostDto create(com.sparta.mk.dto.BoardRequestDto requestDto, String email)  {
+    public DetailPostDto create(BoardRequestDto requestDto, String email)  {
         Member member = getMember(email);
         Board board = Board.builder()
                 .boardTitle(requestDto.getTitle())
