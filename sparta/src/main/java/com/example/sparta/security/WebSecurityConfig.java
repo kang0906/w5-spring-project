@@ -52,6 +52,7 @@ public class WebSecurityConfig {
 
         http.authorizeRequests()
                 .antMatchers("/api/member/**").permitAll()
+                .antMatchers("/api/post/**").permitAll()
                 .anyRequest().authenticated()
                 //내가 넣어주는 필터를 먼저 넣어주겠다
                 //그 필터가 jwt야 즉 jwt사용할거임 ㅇㅇ
