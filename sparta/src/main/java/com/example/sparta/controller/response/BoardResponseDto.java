@@ -16,7 +16,7 @@ public class BoardResponseDto {
     private String title;
     private String content;
     private String name;
-    private List<CommentResponseDto> commentResponseDtoList;
+//    private List<CommentResponseDto> commentResponseDtoList;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 }

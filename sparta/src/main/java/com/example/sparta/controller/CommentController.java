@@ -20,8 +20,8 @@ public class CommentController {
 
     //댓글 쓰기
     @PostMapping("/api/post/{postId}/comment")
-    public CommentResponseDto createComment(@RequestBody CommentDto commentDto, @AuthenticationPrincipal UserDetailsImpl userDetail) throws IllegalAccessException {
-        return commentService.createComment(commentDto, userDetail.getUsername());
+    public CommentResponseDto createComment(@PathVariable Long postId, @RequestBody CommentDto commentDto, @AuthenticationPrincipal UserDetailsImpl userDetail) throws IllegalAccessException {
+        return commentService.createComment(postId, commentDto, userDetail.getUsername());
     }
 
     //댓글 수정
@@ -38,8 +38,8 @@ public class CommentController {
 
 
     //댓글 목록 조회
-    @GetMapping("/api/comment/{id}")
-    public CommonResponseDto<?> getComment(@PathVariable Long id) {
-        return commentService.getCommentList(id);
+    @GetMapping("/api/comment/{postId}")
+    public CommonResponseDto<?> getComment(@PathVariable Long postId) {
+        return commentService.getCommentList(postId);
     }
 }

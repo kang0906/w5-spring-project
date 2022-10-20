@@ -1,7 +1,5 @@
 package com.example.sparta.service;
 
-
-
 import com.example.sparta.controller.request.CommentDto;
 import com.example.sparta.controller.response.CommentResponseDto;
 import com.example.sparta.controller.response.CommonResponseDto;
@@ -11,10 +9,12 @@ import com.example.sparta.entity.Member;
 import com.example.sparta.repository.BoardRepository;
 import com.example.sparta.repository.CommentRepository;
 import com.example.sparta.repository.MemberRepository;
+import com.example.sparta.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,48 +24,48 @@ import java.util.Optional;
 public class CommentService {
 
     private final CommentRepository commentRepository;
-    private final MemberRepository memberRepository;
-    private final BoardRepository postRepository;
-
     private final BoardService boardService;
 
-    private Member getMember(String username) {
-        Optional<Member> mem = memberRepository.findByEmail(username);
+    private final MemberRepository memberRepository;
+
+    private final BoardRepository boardRepository;
+
+    private Member getMember(String Email) {
+        Optional<Member> mem = memberRepository.findByEmail(Email);
         if(!mem.isPresent())
             throw new IllegalArgumentException("사용자 정보가 없습니다!");
         return mem.get();
     }
 
-    private void extracted(CommentDto commentDto) {
-        postRepository.findById(commentDto.getPostId()).orElseThrow(() -> new IllegalArgumentException("해당 글이 존재하지 않습니다."));
+    private Board extracted(Long postId) {
+        return boardRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("해당 글이 존재하지 않습니다."));
     }
 
-    // 댓글 생성
+    //댓글 작성
     @Transactional
-    public CommentResponseDto createComment(CommentDto commentDto, String email)  {
-        Member member = getMember(email);
-        extracted(commentDto);
-        Comment comment = new Comment(member);
+    public CommentResponseDto createComment(Long postId, CommentDto requestDto, String Email) {
+        Member member = getMember(Email);
+        Board extracted = extracted(postId);
+        Comment comment = new Comment(extracted, member, requestDto.getComment());
 
         commentRepository.save(comment);
         return CommentResponseDto.builder()
                 .id(comment.getId())
-                .name(comment.getMember().getEmail())
+                .name((comment.getMember().getEmail()))
                 .comment(comment.getComment_content())
                 .createdAt(comment.getCreatedAt())
                 .modifiedAt(comment.getModifiedAt())
                 .build();
     }
-
     // 댓글 수정
     @Transactional
-    public CommentResponseDto updateComment(Long id, CommentDto commentDto, String email) {
+    public CommentResponseDto updateComment(Long postId, CommentDto requestDto, String email) {
         Member member = getMember(email);
-        extracted(commentDto);
-        Comment comment = commentRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("댓글을 찾을 수 없습니다."));
+        extracted(postId);
+        Comment comment = commentRepository.findById(postId).orElseThrow(()-> new IllegalArgumentException("댓글을 찾을 수 없습니다."));
         if(!member.getEmail().equals(comment.getMember().getEmail()))
             throw new IllegalArgumentException("댓글 작성자가 다릅니다.");
-        comment.update(commentDto);
+        comment.update(requestDto);
         return CommentResponseDto.builder()
                 .id(comment.getId())
                 .name((comment.getMember().getEmail()))

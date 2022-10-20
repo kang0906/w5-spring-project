@@ -45,7 +45,7 @@ public class BoardService {
         if(!board.getMember().getEmail().equals(member.getEmail()))
             throw new IllegalArgumentException("작성자만 수정할 수 있습니다.");
         board.update(requestDto);
-        return new DetailPostDto();
+        return new DetailPostDto(board);
 
     }
 
@@ -71,8 +71,8 @@ public class BoardService {
 
     //게시글 삭제
     @Transactional
-    public void delete(Long id, String username)  {
-        Member member = getMember(username);
+    public void delete(Long id, String email)  {
+        Member member = getMember(email);
         Board board = boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 글이 존재하지 않습니다."));
         if(!board.getMember().getEmail().equals(member.getEmail()))
             throw new IllegalArgumentException("작성자만 삭제할 수 있습니다.");
