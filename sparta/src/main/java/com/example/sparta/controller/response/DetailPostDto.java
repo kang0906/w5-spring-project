@@ -1,6 +1,7 @@
 package com.example.sparta.controller.response;
 
 
+import com.example.sparta.entity.Board;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,13 +27,14 @@ public class DetailPostDto {
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
-//    public DetailPostDto (Board board) {
-//        this.id = board.getId();
-//        this.title = board.getTitle();
-//        this.name = board.getMember().getUsername();
-//        this.content = board.getContents();
-//        this.createAt = board.getCreateAt();
-//        this.modifiedAt = board.getModifiedAt();
-//    }
+
+    public DetailPostDto (Board board) {
+        this.id = board.getId();
+        this.title = board.getBoardTitle();
+        this.name = board.getMember().getName();
+        this.content = board.getBoardContent();
+        this.createdAt = board.getCreatedAt();
+        this.modifiedAt = board.getModifiedAt();
+    }
 }
 
